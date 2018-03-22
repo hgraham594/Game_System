@@ -17,13 +17,15 @@ def get_font_dir_location():
 
 def get_font(font_name, size):
     font_dir_location = get_font_dir_location()
-    if font_name == 'Comic Sans':
-        return pygame.font.Font(''.join([font_dir_location, 'comic.ttf']), size)
-    if font_name == 'Calibri':
-        return pygame.font.Font(''.join([font_dir_location, 'calibri.ttf']), size)
-    if font_name == 'Lucida Console':
-        return pygame.font.Font(''.join([font_dir_location, 'lucon.ttf']), size)
-    return pygame.font.SysFont('Calibri', size, True, False)
+    try:
+        if font_name == 'Comic Sans':
+            return pygame.font.Font(''.join([font_dir_location, 'comic.ttf']), size)
+        if font_name == 'Calibri':
+            return pygame.font.Font(''.join([font_dir_location, 'calibri.ttf']), size)
+        if font_name == 'Lucida Console':
+            return pygame.font.Font(''.join([font_dir_location, 'lucon.ttf']), size)
+    except OSError:
+        return pygame.font.SysFont('Calibri', size, True, False)
 
 
 def draw_new_text(text, font, colour, screen, center_point):

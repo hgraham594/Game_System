@@ -1,4 +1,4 @@
-from Display.display_manager import *
+from retro_games.Display.display_manager import *
 
 
 def draw_buttons(mouse_position, screen, _button_font, text, button_midpoints):
@@ -18,26 +18,29 @@ def check_buttons_clicked(mouse_position, _button_font, text, button_midpoints):
 
 
 def open_home_screen(_screen, clock):
-    title_font = get_font('Comic Sans', 100)
-    button_font = get_font('Lucida Console', 30)
+    button_height = 50
+    title_font = get_font('Comic Sans', 150)
+    button_font = get_font('Lucida Console', button_height)
 
     screen = _screen[0]
     screen_size = _screen[1]
 
+    # Image variables
+    segment_size = 40
+    apple_size = 40
     snake = [[(screen_size[0] / 2), (screen_size[1] / 2) - 10],
-             [(screen_size[0] / 2) - 20, (screen_size[1] / 2) - 10],
-             [(screen_size[0] / 2) - 40, (screen_size[1] / 2) - 10],
-             [(screen_size[0] / 2) - 60, (screen_size[1] / 2) - 10],
-             [(screen_size[0] / 2) - 80, (screen_size[1] / 2) - 10],
-             [(screen_size[0] / 2) - 100, (screen_size[1] / 2) - 10]]
-    apple_x, apple_y = [(screen_size[0] / 2) + 80, (screen_size[1] / 2) - 10]  # Location of the apple
+             [(screen_size[0] / 2) - segment_size, (screen_size[1] / 2) - 10],
+             [(screen_size[0] / 2) - segment_size*2, (screen_size[1] / 2) - 10],
+             [(screen_size[0] / 2) - segment_size*3, (screen_size[1] / 2) - 10],
+             [(screen_size[0] / 2) - segment_size*4, (screen_size[1] / 2) - 10],
+             [(screen_size[0] / 2) - segment_size*5, (screen_size[1] / 2) - 10]]
+    apple_pos = [(screen_size[0] / 2) + 4*segment_size, (screen_size[1] / 2) - 10]
 
     title_midpoint = [screen_size[0] / 2, screen_size[1] / 4]
-    play_midpoint = [screen_size[0] / 2, screen_size[1] * (2 / 3)]
-    rule_midpoint = [screen_size[0] / 2, screen_size[1] * (2 / 3) + 35]
-    high_score_midpoint = [screen_size[0] / 2, screen_size[1] * (2 / 3) + 70]
-    button_midpoints = [play_midpoint, rule_midpoint, high_score_midpoint]
-    button_names = ['PLAY', 'RULES', 'HIGH SCORES']
+    button_names = ['PLAY', 'RULES', 'HIGH SCORES', 'SETTINGS']
+    button_midpoints = []
+    for i in range(len(button_names)):
+        button_midpoints.append([screen_size[0]/2, screen_size[1] * (2/3) + button_height*i])
 
     quit_status = False
     done = False
@@ -66,8 +69,8 @@ def open_home_screen(_screen, clock):
 
         # --- Drawing code should go here
         for i in range(len(snake)):
-            pygame.draw.rect(screen, green, [snake[i][0], snake[i][1], 19, 19])
-        pygame.draw.rect(screen, red, [apple_x, apple_y, 19, 19])
+            pygame.draw.rect(screen, green, [snake[i][0], snake[i][1], segment_size-1, segment_size-1])
+        pygame.draw.rect(screen, red, [apple_pos[0], apple_pos[1], apple_size-1, apple_size-1])
 
         # --- Go ahead and update the screen with what we've drawn.
         pygame.display.flip()

@@ -1,13 +1,13 @@
-from setup_for_pygame import *
-from snake.play import *
-from snake.home_screen import *
+from retro_games.setup_for_pygame import *
+from retro_games.snake.play import *
+from retro_games.snake.home_screen import *
 
 
 def main():
     # Initialise pygame.
     initialise_pygame()
 
-    screen = new_screen((700, 500), "Snake")
+    screen = new_screen((800, 800), "Snake")
     clock = new_clock()
 
     next_screen = 'Home Screen'
@@ -23,7 +23,7 @@ def main():
         # Add more screen checks here...
 
         if next_screen == 'PLAY':
-            speed = 0.5
+            speed = 0.1
             quit_status, score, next_screen = play_snake(speed, screen, clock)
 
         if next_screen == 'RULES':  # TODO: create a rules page.
